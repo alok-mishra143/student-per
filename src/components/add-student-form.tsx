@@ -1,20 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 type AddStudentFormProps = {
-  onAddStudent: (student: {
+  onSubmit: (student: {
     rollNo: string;
     name: string;
     grade: string;
     score: number;
   }) => void;
+  initialData?: {
+    rollNo: string;
+    name: string;
+    grade: string;
+    score: number;
+  };
 };
 
-export function AddStudentForm({ onAddStudent }: AddStudentFormProps) {
+export function AddStudentForm({ onSubmit, initialData }: AddStudentFormProps) {
   const [formData, setFormData] = useState({
     rollNo: "",
     name: "",
@@ -22,13 +28,28 @@ export function AddStudentForm({ onAddStudent }: AddStudentFormProps) {
     score: "",
   });
 
+  useEffect(() => {
+    if (initialData) {
+      setFormData({
+        ...initialData,
+        score: initialData.score.toString(),
+      });
+    }
+  }, [initialData]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onAddStudent({
+    onSubmit({
       ...formData,
       score: Number(formData.score),
     });
-    setFormData({ rollNo: "", name: "", grade: "", score: "" });
+    console.log("submitted");
+    setFormData({
+      rollNo: "",
+      name: "",
+      grade: "",
+      score: "",
+    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,6 +69,7 @@ export function AddStudentForm({ onAddStudent }: AddStudentFormProps) {
           value={formData.rollNo}
           onChange={handleChange}
           required
+          disabled={!!initialData} // 🔹 Disable roll number input when editing
         />
       </div>
       <div>
@@ -81,7 +103,7 @@ export function AddStudentForm({ onAddStudent }: AddStudentFormProps) {
           required
         />
       </div>
-      <Button type="submit">Add Student</Button>
+      <Button type="submit">Submit</Button>
     </form>
   );
 }

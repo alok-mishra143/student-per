@@ -237,7 +237,7 @@ export default function HeroGeometric({
             initial="hidden"
             animate="visible"
           >
-            <Link href="/Signup">
+            <Link href="/dashboard">
               <Button className="px-6 py-2 rounded-full font-medium border border-neutral-700 dark:border-neutral-300 text-neutral-800 dark:text-neutral-200 bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-300">
                 Get Started
               </Button>

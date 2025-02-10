@@ -10,16 +10,10 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ChevronDown, Edit, Trash } from "lucide-react";
+
 import { useState } from "react";
+import StudentAddEdit from "./global/student-model/StudentAddEdit";
+import { Trash } from "lucide-react";
 
 type Student = {
   rollNo: string;
@@ -41,7 +35,7 @@ type StudentTableProps = {
 
 export function StudentTable({
   students,
-  onEdit,
+
   onDelete,
   onSort,
   sortKey,
@@ -106,28 +100,18 @@ export function StudentTable({
               <TableCell>{student.grade}</TableCell>
               <TableCell>{student.score}</TableCell>
               <TableCell>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="h-8 w-8 p-0">
-                      <span className="sr-only">Open menu</span>
-                      <ChevronDown className="h-4 w-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuItem
-                      onClick={() => onEdit(student.rollNo, student)}
-                    >
-                      <Edit className="mr-2 h-4 w-4" />
-                      Edit
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={() => onDelete(student.rollNo)}>
-                      <Trash className="mr-2 h-4 w-4" />
-                      Delete
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <div className="flex space-x-2">
+                  <StudentAddEdit
+                    Title="Edit Student"
+                    Usefor="Edit"
+                    studentData={student}
+                  />
+
+                  <Button onClick={() => onDelete(student.rollNo)}>
+                    <Trash className="mr-2 h-4 w-4" />
+                    Delete
+                  </Button>
+                </div>
               </TableCell>
             </TableRow>
           ))}
