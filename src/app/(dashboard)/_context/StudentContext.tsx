@@ -25,15 +25,20 @@ export const StudentProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   // Load from localStorage or set empty array
   const getStoredStudents = (): Student[] => {
-    const storedStudents = localStorage.getItem("students");
-    return storedStudents ? JSON.parse(storedStudents) : [];
+    if (typeof window !== "undefined") {
+      const storedStudents = localStorage.getItem("students");
+      return storedStudents ? JSON.parse(storedStudents) : [];
+    }
+    return [];
   };
 
   const [students, setStudents] = useState<Student[]>(getStoredStudents);
 
   // Update localStorage whenever students change
   useEffect(() => {
-    localStorage.setItem("students", JSON.stringify(students));
+    if (typeof window !== "undefined") {
+      localStorage.setItem("students", JSON.stringify(students));
+    }
   }, [students]);
 
   return (

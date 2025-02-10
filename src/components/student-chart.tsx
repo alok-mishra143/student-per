@@ -38,31 +38,32 @@ export function StudentChart({ students }: StudentChartProps) {
   ];
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Student Performance Overview</CardTitle>
-        <CardDescription>Average, highest, and lowest scores</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer
-          config={{
-            score: {
-              label: "Score",
-              color: "hsl(var(--chart-1))",
-            },
-          }}
-          className="h-[300px]"
-        >
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData}>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <ChartTooltip content={<ChartTooltipContent />} />
-              <Bar dataKey="score" fill="var(--color-score)" />
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartContainer>
-      </CardContent>
-    </Card>
+    <div className="">
+      <Card>
+        <CardHeader>
+          <CardTitle>Student Performance Overview</CardTitle>
+          <CardDescription>Average, highest, and lowest scores</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ChartContainer
+            config={{
+              score: {
+                label: "Score",
+                color: "hsl(var(--chart-1))",
+              },
+            }}
+          >
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={chartData}>
+                <XAxis dataKey="name" />
+                <YAxis />
+                <ChartTooltip content={<ChartTooltipContent />} />
+                <Bar dataKey="score" fill="var(--color-score)" />
+              </BarChart>
+            </ResponsiveContainer>
+          </ChartContainer>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
